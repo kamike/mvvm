@@ -6,19 +6,13 @@ part of './mvvm.dart';
 
 /// ViewContext
 ///
-class ViewContext<TViewModel extends ViewModelBase>
-    extends _ViewContextBase<TViewModel>
-    with
-        ViewContextWatchHelperMixin,
-        ViewContextLogicalHelperMixin,
-        ViewContextBuilderHelperMixin,
-        ViewContextAdaptorHelperMixin {
+class ViewContext<TViewModel extends ViewModelBase> extends _ViewContextBase<TViewModel>
+    with ViewContextWatchHelperMixin, ViewContextLogicalHelperMixin, ViewContextBuilderHelperMixin, ViewContextAdaptorHelperMixin {
   /// ViewContext
   ViewContext(TViewModel model) : super(model);
 }
 
-class _ViewContextBase<TViewModel extends ViewModelBase>
-    implements ViewListener {
+class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener {
   final TViewModel _model;
 
   /// 任务集合
@@ -36,12 +30,10 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   _ViewContextBase(this._model);
 
   @protected
-  BindableProperty<TValue> getProperty<TValue>(Object propertyKey) =>
-      model?.getProperty<TValue>(propertyKey, required: true);
+  BindableProperty<TValue> getProperty<TValue>(Object propertyKey) => model?.getProperty<TValue>(propertyKey, required: true);
 
   @protected
-  Iterable<BindableProperty<TValue>> getProperties<TValue>(
-          Iterable<Object> propertyKeys) =>
+  Iterable<BindableProperty<TValue>> getProperties<TValue>(Iterable<Object> propertyKeys) =>
       model?.getProperties<TValue>(propertyKeys, required: true);
 
   /// 注册绑定属性
@@ -49,22 +41,18 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   /// [property] 指定属性
   ///
   @protected
-  void registryProperty<TValue>(BindableProperty<TValue> property) =>
-      model?.registryProperty(property);
+  void registryProperty<TValue>(BindableProperty<TValue> property) => model?.registryProperty(property);
 
   ///
   /// 生成一个空 [Widget] 构建方法
-  ValueWidgetBuilder _emptyWidgetBuilder() =>
-      (_, dynamic __, ___) => const SizedBox.shrink();
+  ValueWidgetBuilder _emptyWidgetBuilder() => (_, dynamic __, ___) => const SizedBox.shrink();
 
   /* dynamic _ensureValue<TValue>(
           TValue fromValue, dynamic Function(TValue) convert) =>
       convert == null ? fromValue : convert(fromValue); */
 
-  ValueWidgetBuilder<TValue> _builderSelector<TValue>(
-          ValueWidgetBuilder<TValue> Function(TValue) selector) =>
-      (context, value, child) =>
-          (selector(value) ?? _emptyWidgetBuilder())(context, value, child);
+  ValueWidgetBuilder<TValue> _builderSelector<TValue>(ValueWidgetBuilder<TValue> Function(TValue) selector) =>
+      (context, value, child) => (selector(value) ?? _emptyWidgetBuilder())(context, value, child);
 
   ///
   /// 绑定到指定 [propertyKey] 当值发生变化时, 使用 [builder] 构建 [Widget]
@@ -72,10 +60,8 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   /// [child] 用于向构建方法中传入 [Widget]
   ///
   @protected
-  Widget buildFor<TValue>(Object propertyKey,
-          {ValueWidgetBuilder<TValue> builder, Widget child}) =>
-      build<TValue>(getProperty<TValue>(propertyKey),
-          builder: builder, child: child);
+  Widget buildFor<TValue>(Object propertyKey, {ValueWidgetBuilder<TValue> builder, Widget child}) =>
+      build<TValue>(getProperty<TValue>(propertyKey), builder: builder, child: child);
 
   ///
   /// 绑定到指定 [valueListenable] 当值发生变化时, 使用 [selector] 选择器中提供的构建方法构建 [Widget]
@@ -87,13 +73,8 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   ///
   @protected
   Widget buildFromSelector<TValue>(ValueListenable<TValue> valueListenable,
-          {ValueWidgetBuilder<TValue> Function(TValue) selector,
-          Widget child,
-          bool nullBuilderToEmptyWidget = false}) =>
-      build<TValue>(valueListenable,
-          builder: _builderSelector(selector),
-          child: child,
-          nullBuilderToEmptyWidget: nullBuilderToEmptyWidget);
+          {ValueWidgetBuilder<TValue> Function(TValue) selector, Widget child, bool nullBuilderToEmptyWidget = false}) =>
+      build<TValue>(valueListenable, builder: _builderSelector(selector), child: child, nullBuilderToEmptyWidget: nullBuilderToEmptyWidget);
 
   ///
   /// 绑定到指定 [valueListenable] 当值发生变化时, 使用 [builder] 构建 [Widget]
@@ -105,14 +86,9 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   ///
   @protected
   Widget build<TValue>(ValueListenable<TValue> valueListenable,
-          {ValueWidgetBuilder<TValue> builder,
-          Widget child,
-          bool nullBuilderToEmptyWidget = false}) =>
+          {ValueWidgetBuilder<TValue> builder, Widget child, bool nullBuilderToEmptyWidget = false}) =>
       ValueListenableBuilder<TValue>(
-          valueListenable: valueListenable,
-          builder: builder ??
-              (nullBuilderToEmptyWidget ? _emptyWidgetBuilder() : null),
-          child: child);
+          valueListenable: valueListenable, builder: builder ?? (nullBuilderToEmptyWidget ? _emptyWidgetBuilder() : null), child: child);
 
   /// 视图 [View] 将要初始化时执行此方法
   void _viewInit(BuildContext context) {
@@ -142,9 +118,7 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   /// 是否存在指定任务 [VoidCallback]
   @protected
   bool containsTask(VoidCallback task) {
-    return task == null || _tasks == null || !_tasks.contains(task)
-        ? false
-        : true;
+    return task == null || _tasks == null || !_tasks.contains(task) ? false : true;
   }
 
   /// 执行所有任务
@@ -161,6 +135,7 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
     model?.dispose();
     _model?.destory();
     dispose();
+    destory();
   }
 
   /// 关联的视图 [View] 初始化前调用此方法
@@ -176,4 +151,7 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   /// dispose
   @protected
   void dispose() {}
+
+  @override
+  void destory() {}
 }
