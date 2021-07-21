@@ -150,8 +150,12 @@ class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener
 
   /// dispose
   @protected
-  void dispose() {}
+  void dispose() {
+    print("=====dispose11111==");
+  }
 
   @override
-  void destory() {}
+  void destory() {
+    print("=====destory11111==");
+  }
 }

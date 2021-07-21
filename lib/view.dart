@@ -59,7 +59,7 @@ abstract class ViewBase<TViewModel extends ViewModel,
 
   @override
   void _dispose() {
-    // _context?._dispose();
+    _context?._dispose();
   }
 
   /// dispose
