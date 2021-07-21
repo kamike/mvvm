@@ -55,13 +55,14 @@ abstract class ViewBase<TViewModel extends ViewModel,
 
   @override
   void _dispose() {
-    _context?._dispose();
+    // _context?._dispose();
   }
 
   /// dispose
   @protected
   void dispose() {
     print("====mvvm:dispose");
+    _context?._dispose();
   }
 
   /// init
