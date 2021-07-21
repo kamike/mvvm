@@ -13,6 +13,10 @@ abstract class ViewListener {
   /// 关联的视图 [View] 准备就绪后调用此方法
   @protected
   void viewReady(BuildContext context);
+
+
+  @protected
+  void destory();
 }
 
 /// View

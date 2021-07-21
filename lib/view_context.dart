@@ -159,6 +159,7 @@ class _ViewContextBase<TViewModel extends ViewModelBase>
   void _dispose() {
     _tasks = null;
     model?.dispose();
+    _model?.destory();
     dispose();
   }
 
