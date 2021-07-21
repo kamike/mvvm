@@ -29,4 +29,10 @@ abstract class _ViewModelBase extends BindableObject with ViewListener {
 
   @protected
   void detachView(BuildContext context, ViewWidget view) {} */
+
+  @protected
+  @override
+  void destory(){
+
+  }
 }
