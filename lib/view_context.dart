@@ -134,8 +134,6 @@ class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener
     _tasks = null;
     model?.dispose();
     _model?.destory();
-    dispose();
-    destory();
   }
 
   /// 关联的视图 [View] 初始化前调用此方法
@@ -151,11 +149,9 @@ class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener
   /// dispose
   @protected
   void dispose() {
-    print("=====dispose11111==");
   }
 
   @override
   void destory() {
-    print("=====destory11111==");
   }
 }
