@@ -136,6 +136,10 @@ class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener
     _model?.destory();
   }
 
+  void didChangeDependencies() {
+    _model?.didChangeDependencies();
+  }
+
   /// 关联的视图 [View] 初始化前调用此方法
   @protected
   @override
@@ -148,10 +152,8 @@ class _ViewContextBase<TViewModel extends ViewModelBase> implements ViewListener
 
   /// dispose
   @protected
-  void dispose() {
-  }
+  void dispose() {}
 
   @override
-  void destory() {
-  }
+  void destory() {}
 }

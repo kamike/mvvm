@@ -76,6 +76,11 @@ abstract class ViewBase<TViewModel extends ViewModel,
   /// ready
   @protected
   void ready(BuildContext context) {}
+
+  @override
+  void _didChangeDependencies() {
+    _context?.didChangeDependencies();
+  }
 }
 
 /// ViewWidget
@@ -89,6 +94,7 @@ abstract class ViewWidget extends StatefulWidget {
   void _buildBefore(BuildContext context);
   void _buildAfter(BuildContext context);
   void _dispose();
+  void _didChangeDependencies();
 
   /// setState
   @protected
@@ -113,5 +119,11 @@ class _ViewWidgetState extends State<ViewWidget> {
   void dispose() {
     super.dispose();
     widget._dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget._didChangeDependencies();
   }
 }

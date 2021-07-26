@@ -35,4 +35,10 @@ abstract class _ViewModelBase extends BindableObject with ViewListener {
   void destory(){
 
   }
+  @protected
+  @override
+  void didChangeDependencies(){
+
+  }
+
 }
